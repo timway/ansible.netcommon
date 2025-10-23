@@ -629,6 +629,7 @@ class Connection(ConnectionBase):
                 # it works fine if the file is actually present
                 scp.get(in_path, out_path)
             except LibsshSCPException as exc:
+                self.ssh.reset()
                 raise AnsibleError("Error transferring file from %s: %s" % (out_path, to_text(exc)))
         else:
             raise AnsibleError("Don't know how to transfer file over protocol %s" % proto)
